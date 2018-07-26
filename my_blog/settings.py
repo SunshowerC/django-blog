@@ -125,4 +125,7 @@ PAGE_NUM = 3 # 每页显示3篇文章
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (               # 指定 静态文件夹的目录
+    os.path.join(BASE_DIR, 'static'),
+)
 

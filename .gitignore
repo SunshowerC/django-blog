@@ -18,6 +18,7 @@ venv.bak/
 
 # jetbrain
 .idea
+.DS_Store
 
 # cache
 __pycache__
