@@ -1,3 +1,6 @@
+#-*- coding: utf-8 -*-
+#!/usr/bin/python
+
 """my_blog URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -17,10 +20,21 @@ from django.contrib import admin
 from django.urls import path
 from apps.blog import views
 
+from django.conf import settings
+from django.conf.urls import include
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('home/', views.home, name='home'),
     path('articles/<int:id>/', views.detail, name='detail'),
+
+    # 此URL用于summernote/upload_attachment 上传接口，
+    path('summernote/', include('django_summernote.urls')),
 ]
+
+# 如果是调试模式，将 url 为 /media/ 开通的 请求，转发到访问 MEDIA_ROOT 文件夹
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
