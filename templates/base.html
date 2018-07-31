@@ -41,6 +41,18 @@
                         &nbsp;
                     </li>
                 </ul>
+
+                <h3 class="brand-tagline" style="margin: 2%">文章归档</h3>
+                <ul class="nav-list" style="margin: 2%">
+                    {% for m in months %}
+                        <li>
+                            <a href="{% url 'archives' year=m.year month=m.month %}"
+                               style="text-decoration: none">{{ m | date:'Y年m月' }}</a>
+                        </li>
+                    {% empty %}
+                        暂无归档！
+                    {% endfor %}
+                </ul>
             </nav>
         </div>
     </div>
