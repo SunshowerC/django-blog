@@ -17,7 +17,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('my_blog/', include('my_blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path
 from apps.blog import views
 
 from django.conf import settings
@@ -35,9 +35,15 @@ urlpatterns = [
 
     # 此URL用于summernote/upload_attachment 上传接口，
     path('summernote/', include('django_summernote.urls')),
+
+
 ]
+
+
 
 # 如果是调试模式，将 url 为 /media/ 开通的 请求，转发到访问 MEDIA_ROOT 文件夹
 if settings.DEBUG:
+    import debug_toolbar
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns = [re_path(r'^__debug__/', include(debug_toolbar.urls)), ] + urlpatterns
 
