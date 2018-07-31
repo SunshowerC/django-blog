@@ -29,6 +29,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('home/', views.home, name='home'),
     path('articles/<int:id>/', views.detail, name='detail'),
+    path('category/<int:id>/', views.category, name='category_menu'),
+    path('tag/<str:tag>/', views.tag, name='tag_menu'),
 
     # 此URL用于summernote/upload_attachment 上传接口，
     path('summernote/', include('django_summernote.urls')),
