@@ -54,10 +54,10 @@ class Article(models.Model):
     pub_time = models.DateTimeField(verbose_name='发布时间', blank=True, null=True)
     last_mod_time = models.DateTimeField(verbose_name='修改时间', default=now)
 
-    # 类别
+    # 类别, 外键，在数据库以 category_id 的字段 存储在 article 表中
     category = models.ForeignKey(Category, verbose_name='分类', on_delete=models.CASCADE, blank=False, null=False)
 
-    # 一篇文章可以有多个 tag ， 一个tag可以存在在多篇文章
+    # 一篇文章可以有多个 tag ， 一个tag可以存在在多篇文章。  不会有tags字段存在 article 表中
     tags = models.ManyToManyField(Tag, verbose_name='标签集合', blank=True)
 
     # 使对象在后台显示更友好
