@@ -67,14 +67,18 @@ class Article(models.Model):
     # 更新浏览量
     def viewed(self):
         self.views += 1
+        # UPDATE `article` SET `views` = 7 WHERE `article`.`id` = 2
         self.save(update_fields=['views'])
+
 
     # 下一篇
     def next_article(self):  # id比当前id大，状态为已发布，发布时间不为空
+        # SELECT * FROM `article` WHERE (`article`.`id` > 2 AND `article`.`pub_time` IS NOT NULL AND `article`.`status` = 'p') ORDER BY `article`.`pub_time` ASC LIMIT 1
         return Article.objects.filter(id__gt=self.id, status='p', pub_time__isnull=False).order_by('pub_time').first()
 
     # 前一篇
     def prev_article(self):  # id比当前id小，状态为已发布，发布时间不为空
+        # SELECT * FROM `article` WHERE (`article`.`id` < 2 AND `article`.`pub_time` IS NOT NULL AND `article`.`status` = 'p') ORDER BY `article`.`pub_time` DESC LIMIT 1
         return Article.objects.filter(id__lt=self.id, status='p', pub_time__isnull=False).first()
 
     class Meta:
