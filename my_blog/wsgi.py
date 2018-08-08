@@ -8,7 +8,10 @@ https://docs.djangoproject.com/en/2.0/howto/deployment/wsgi/
 """
 
 """
-run django app with uWSGI : uwsgi --socket mysite.sock --module my_blog.wsgi --chmod-socket=664
+run django app with uWSGI : 
+uwsgi --socket mysite.sock --module my_blog.wsgi --chmod-socket=664
+or 
+uwsgi --ini mysite_uwsgi.ini  
 """
 
 import os

@@ -143,7 +143,7 @@ STATICFILES_DIRS = (               # 指定 静态文件夹的目录
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-
+LOG_DIR = os.path.join(BASE_DIR, "log")
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.versions.VersionsPanel',
@@ -161,3 +161,44 @@ DEBUG_TOOLBAR_PANELS = [
 ]
 
 INTERNAL_IPS = ('127.0.0.1','localhost') #（从哪些ip访问站点，显示debug_toolbar）
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {
+
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            # 'class': 'logging.StreamHandler',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'access.log'),
+            'formatter': 'simple'
+        },
+
+
+
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'propagate': True,
+        },
+
+    }
+}
